@@ -2,7 +2,7 @@
 CHARACTERS WILL HAVE UNCONDITIONAL STATS FROM WEAPONS AND DRIVE DISC
 """
 from buffs import CharacterDescription
-from buff_objects import applied_buffs, harumasa_teams, ELECTRIC
+from buff_objects import applied_buffs, ELECTRIC
 from gradient_function import pen_eq
 
 """
@@ -12,7 +12,7 @@ NEED TO RUN apply_buffs FIRST TO WORK
 TARGET_DEF = 953
 unconditional_def_reduction = 0
 
-ATTACKER = "ATTACKER"
+ATTACKER = "attacker"
 SECTION_6 = "section 6"
 
 TYPE_BONUS_DMG = "bonus"
@@ -126,11 +126,12 @@ class Character:
 
         # TODO: ADD CORE BONUS CONDITIONS
         # CALCULATE TOTAL BUFFS
+        activated = False
         for buff in apply_buffs:
-            if buff.__class__.__name__ == "Character":
+            if buff.__class__.__name__ == "CharacterBuff":
                 # ACTIVATE CORE CORE BONUS OF THE BUFFING CHARACTER
                 for condition in buff.core_bonus_conditions:
-                    print(condition)
+                    print("condition for the buffer = {0}".format(condition))
                     if condition == self.MyDescription:
                         if buff.core_bonus_type == TYPE_BONUS_DMG:
                             conditional_bonus_dmg += buff.core_bonus
@@ -138,15 +139,19 @@ class Character:
                             conditional_crit_rate += buff.core_bonus
                         elif buff.core_bonus_type == TYPE_CRIT_DMG:
                             conditional_crit_dmg += buff.core_bonus
+                        break
 
-                for condition in self.core_bonus_conditions:
-                    if condition == buff.MyDescription:
-                        if self.core_bonus_type == TYPE_BONUS_DMG:
-                            conditional_bonus_dmg += self.core_bonus
-                        elif self.core_bonus_type == TYPE_CRIT_RATE:
-                            conditional_crit_rate += self.core_bonus
-                        elif self.core_bonus_type == TYPE_CRIT_DMG:
-                            conditional_crit_dmg += self.core_bonus
+                if not activated:
+                    for condition in self.core_bonus_conditions:
+                        print("condition for this character = {0}".format(condition))
+                        if condition == buff.MyDescription:
+                            if self.core_bonus_type == TYPE_BONUS_DMG:
+                                conditional_bonus_dmg += self.core_bonus
+                            elif self.core_bonus_type == TYPE_CRIT_RATE:
+                                conditional_crit_rate += self.core_bonus
+                            elif self.core_bonus_type == TYPE_CRIT_DMG:
+                                conditional_crit_dmg += self.core_bonus
+                            activated = True
 
             conditional_atk_percent += buff.atk_percent
             conditional_flat_atk += buff.flat_atk
