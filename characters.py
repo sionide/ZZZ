@@ -1,8 +1,8 @@
 """
 CHARACTERS WILL HAVE UNCONDITIONAL STATS FROM WEAPONS AND DRIVE DISC
 """
-import buffs, gradient_function
-from buffs import applied_buffs, harumasa_teams, CharacterDescription, ELECTRIC
+from buffs import CharacterDescription
+from buff_objects import applied_buffs, harumasa_teams, ELECTRIC
 from gradient_function import pen_eq
 
 """
