@@ -1,20 +1,38 @@
 from buffs import CharacterBuff, Buff, Weapon
 
 STUNNER = "stun"
+ATTACKER = "attacker"
+SUPPORTER = "supporter"
+ANOMALY = "anomaly"
+
+ETHER = "ether"
 ELECTRIC = "electric"
+
+SECTION_6 = "section 6"
+CUNNING_HARES = "cunning hares"
+STARS_OF_LYRA = 'stars of lyra'
+VICTORIA_HOUSEKEEPING = "victoria housekeeping"
+
+TYPE_BONUS_DMG = "bonus"
+TYPE_CRIT_RATE = "crit rate"
+TYPE_CRIT_DMG = "crit dmg"
+
 
 """
 Character Buffs
 """
 
 # TODO: ADD CORE BONUS AND FACTION
-AstraYao = CharacterBuff(0, 1200, 0, 25, 20, 0, 0, 0, 0, "", ["attacker"], "support", "", "ether")
+AstraYao = CharacterBuff(0, 1200, 0, 25, 20, 0, 0, 0,
+                         0, "", [ATTACKER, ANOMALY], SUPPORTER, STARS_OF_LYRA, ETHER)
 
-HarumasaSelfBuff = CharacterBuff(0, 0, 25, 72, 0, 0, 0, 0, 0, "", "", "", "", "")
+HarumasaSelfBuff = Buff(0, 0, 25, 72, 0, 0, 0, 0)
 
-NicoleM6CoreBonus = CharacterBuff(0, 0, 15, 0, 25, 0, 40, 0, 0, "", "", "", "", "")
+NicoleM6 = CharacterBuff(0, 0, 15, 0, 0, 0, 40, 0,
+                         25, TYPE_BONUS_DMG, [ETHER, CUNNING_HARES], SUPPORTER, CUNNING_HARES, ETHER)
 
-RinaM0NoCoreBonusSliceOfTime = CharacterBuff(0, 0, 0, 0, 0, 28.6, 0, 0, 0, "", "", "", "", "")
+RinaM0SliceOfTime = CharacterBuff(0, 0, 0, 0, 0, 28.6, 0, 0,
+                                  10, TYPE_BONUS_DMG, [ELECTRIC, VICTORIA_HOUSEKEEPING], SUPPORTER, VICTORIA_HOUSEKEEPING, ELECTRIC)
 
 """
 Set Buffs
@@ -23,7 +41,7 @@ AstralVoice = Buff(0, 0, 0, 0, 24, 0, 0, 0)
 SwingJazz = Buff(0, 0, 0, 0, 15, 0, 0, 0)
 WoodpeckerElectro1 = Buff(9, 0, 0, 0, 0, 0, 0, 0)
 WoodpeckerElectro2 = Buff(18, 0, 0, 0, 0, 0, 0, 0)
-WoodpeckerElectro2 = Buff(27, 0, 0, 0, 0, 0, 0, 0)
+WoodpeckerElectro3 = Buff(27, 0, 0, 0, 0, 0, 0, 0)
 
 
 """
@@ -63,12 +81,14 @@ applied_buffs = [SelectedWeapon,HarumasaSelfBuff,
                  AstralVoice,
                  SwingJazz,
                  WoodpeckerElectro2,
-                 NicoleM6CoreBonus,
+                 # NicoleM6,
+                 # RinaM0SliceOfTime,
+                 CustomBuff,
                  CustomBuff
                  ]
 
-team1 = [SelectedWeapon, HarumasaSelfBuff, AstraYao, NicoleM6CoreBonus, SwingJazz, AstralVoice, WoodpeckerElectro2]
+team1 = [SelectedWeapon, HarumasaSelfBuff, AstraYao, NicoleM6, SwingJazz, AstralVoice, WoodpeckerElectro2]
 team2 = [SelectedWeapon, HarumasaSelfBuff, AstraYao, SwingJazz, AstralVoice, WoodpeckerElectro2]
-team3 = [SelectedWeapon, HarumasaSelfBuff, NicoleM6CoreBonus, SwingJazz, AstralVoice, WoodpeckerElectro2]
+team3 = [SelectedWeapon, HarumasaSelfBuff, NicoleM6, SwingJazz, AstralVoice, WoodpeckerElectro2]
 
 harumasa_teams = [team1, team2, team3]
