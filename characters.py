@@ -2,7 +2,7 @@
 CHARACTERS WILL HAVE UNCONDITIONAL STATS FROM WEAPONS AND DRIVE DISC
 """
 import buffs, gradient_function
-from buffs import applied_buffs, harumasa_teams, CharacterDescription
+from buffs import applied_buffs, harumasa_teams, CharacterDescription, ELECTRIC
 from gradient_function import pen_eq
 
 """
@@ -106,12 +106,13 @@ class Character:
             self.final_crit_dmg += 2*self.converted_to_crit_dmg
 
 
-    """
-    TAKES IN AN ARRAY OF BUFFS
-    INDEX 0 IS A WEAPON
-    ALSO CONVERTS OVERCAPPED CRIT RATE TO CRIT DMG
-    """
+
     def apply_buffs(self, apply_buffs):
+        """
+        TAKES IN AN ARRAY OF BUFFS
+        INDEX 0 IS A WEAPON
+        ALSO CONVERTS OVERCAPPED CRIT RATE TO CRIT DMG
+        """
         conditional_atk_percent = 0
         conditional_flat_atk = 0
         conditional_crit_rate = 0
@@ -160,10 +161,11 @@ class Character:
                                    conditional_bonus_dmg, conditional_pen_ratio, conditional_def_reduction)
 
 
-    """
-    RATIOS ARE ONLY GOOD FOR COMPARING WITH THE SAME BASE ATK
-    """
+
     def print_unconditional_ratios(self):
+        """
+        RATIOS ARE ONLY GOOD FOR COMPARING WITH THE SAME BASE ATK
+        """
         if self.base_atk == 0:
             print("Run apply_buffs first before print_unconditional_ratios")
             return
@@ -203,10 +205,11 @@ class Character:
         print("{0:15} {1}:1".format("CRIT:ATK", round( (crit_avg-1) / (atk-1), 2) ))
         print("\n{0:15} {1}%".format("TOTAL INCREASE", round(total_increase*100, 2)) )
 
-    """
-    FOR COMPARING DIFFERENT BASE ATK
-    """
+
     def print_dmg_sample(self):
+        """
+        FOR COMPARING DIFFERENT BASE ATK
+        """
         if self.base_atk == 0:
             print("Run apply_buffs first before print_unconditional_ratios")
             return
@@ -242,15 +245,12 @@ Marcato2        50081
 Starlight1      47966
 
 """
-substat = 0
-# + 4.8*substat
-# + 45.27*substat
-# + 9*substat
+
 
 Harumasa_Char = Character(915, 3078, 70.6, 117.2,
                           40, 0, 0,
                           40, TYPE_BONUS_DMG,
-                          [STUNNER, ANOMALY], ATTACKER, SECTION_6, "electric")
+                          [STUNNER, ANOMALY], ATTACKER, SECTION_6, ELECTRIC)
 
 Harumasa_Char.apply_buffs(applied_buffs)
 # Harumasa_Char.print_unconditional_stats()
