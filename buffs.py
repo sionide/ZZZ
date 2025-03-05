@@ -1,7 +1,7 @@
 """
 THIS IS FOR CONDITIONAL BUFF ONLY ASSUMES MAX LVL
 """
-stun = "stun"
+STUNNER = "stun"
 
 
 class CharacterDescription:
@@ -52,7 +52,7 @@ class Weapon(Buff):
 Character Buffs
 """
 
-electric = "electric"
+ELECTRIC = "electric"
 
 # TODO: ADD CORE BONUS AND FACTION
 Astra_Yao = Character(0, 1200, 0, 25, 20, 0, 0, 0, 0, "", ["attacker"], "support", "", "ether")
@@ -103,7 +103,7 @@ Selected_Weapon = Starlight_Engine1
 Custom_Buff = Character(0, 0, 0, 0, 0,
                         0, 0, 0,
                         0, "", "",
-                        stun, "", electric)
+                        STUNNER, "", ELECTRIC)
 
 
 applied_buffs = [Selected_Weapon,Harumasa_Self_Buff_Core_Bonus,

@@ -12,16 +12,16 @@ NEED TO RUN apply_buffs FIRST TO WORK
 TARGET_DEF = 953
 unconditional_def_reduction = 0
 
-attacker = "attacker"
-section_6 = "section 6"
+ATTACKER = "ATTACKER"
+SECTION_6 = "section 6"
 
-type_bonus_dmg = "bonus"
-type_crit_rate = "crit rate"
-type_crit_dmg = "crit dmg"
+TYPE_BONUS_DMG = "bonus"
+TYPE_CRIT_RATE = "crit rate"
+TYPE_CRIT_DMG = "crit dmg"
 
 
-stun = "stun"
-anomaly = "anomaly"
+STUNNER = "stun"
+ANOMALY = "anomaly"
 
 
 class Character:
@@ -128,25 +128,23 @@ class Character:
         for buff in apply_buffs:
             if buff.__class__.__name__ == "Character":
                 # ACTIVATE CORE CORE BONUS OF THE BUFFING CHARACTER
-                # TODO CONSIDER CREATING AN OBJECT AND OPERATOR OVERLOAD INSTEAD OF OR STATEMENTS
                 for condition in buff.core_bonus_conditions:
                     print(condition)
                     if condition == self.MyDescription:
-                        print("triggered {0}".format(buff))
-                        if buff.core_bonus_type == type_bonus_dmg:
+                        if buff.core_bonus_type == TYPE_BONUS_DMG:
                             conditional_bonus_dmg += buff.core_bonus
-                        elif buff.core_bonus_type == type_crit_rate:
+                        elif buff.core_bonus_type == TYPE_CRIT_RATE:
                             conditional_crit_rate += buff.core_bonus
-                        elif buff.core_bonus_type == type_crit_dmg:
+                        elif buff.core_bonus_type == TYPE_CRIT_DMG:
                             conditional_crit_dmg += buff.core_bonus
 
                 for condition in self.core_bonus_conditions:
                     if condition == buff.MyDescription:
-                        if self.core_bonus_type == type_bonus_dmg:
+                        if self.core_bonus_type == TYPE_BONUS_DMG:
                             conditional_bonus_dmg += self.core_bonus
-                        elif self.core_bonus_type == type_crit_rate:
+                        elif self.core_bonus_type == TYPE_CRIT_RATE:
                             conditional_crit_rate += self.core_bonus
-                        elif self.core_bonus_type == type_crit_dmg:
+                        elif self.core_bonus_type == TYPE_CRIT_DMG:
                             conditional_crit_dmg += self.core_bonus
 
             conditional_atk_percent += buff.atk_percent
@@ -251,8 +249,8 @@ substat = 0
 
 Harumasa_Char = Character(915, 3078, 70.6, 117.2,
                           40, 0, 0,
-                          40, type_bonus_dmg,
-                          [stun, anomaly], attacker, section_6, "electric")
+                          40, TYPE_BONUS_DMG,
+                          [STUNNER, ANOMALY], ATTACKER, SECTION_6, "electric")
 
 Harumasa_Char.apply_buffs(applied_buffs)
 # Harumasa_Char.print_unconditional_stats()
