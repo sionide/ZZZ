@@ -90,11 +90,34 @@ class TestCharacters(unittest.TestCase):
         print(self.Harumasa_Char.final_bonus)
         self.assertEqual(self.Harumasa_Char.final_bonus, 90)
 
+    # TODO: THINK ABOUT WHAT HAPPENS WHEN A CORE PASSIVE OFFERS MORE THAN ONE BUFF
+    """
+    Lighter's core passive increases Fire and Frost Bonus Dmg by 75%
+    Miyabi's core passive increases Basic Hold Dmg by 60% conditionally gives 30% res reduction
+    Evelyn's core passive increases Chain and Ult by 30% and conditionally multiplies Chain and Ult by 1.25
+    SS Anby's core passive increases 10% cr and 25% Bonus Aftershock Dmg
+    """
+
     # TODO: there is a case where Lighter buffs 2 elements and I'm losing my mind bc one of them is not his own element
     """
     Lighter offers 75% Bonus Dmg to Fire and Frost if attacker or same faction
     Example:
         Harumasa is an attacker but isn't Fire or Frost, therefore receive no buff from lighter core passive
+        
+    Idea1:
+        In the CharacterBuff core passive array, make the first number equal to the number of conditions
+        that need to be met:
+        
+            Lighter Core Passive Conditions: [2, Fire, Frost, Attacker, Sons of Calydon]
+        
+        No character is dual attribute or dual faction, therefore should never fail
+        This would however would require reformatting other core passive conditions and how it is activated
+        
+    Idea2:
+        Create Different Instances of Lighter
+        Fire Lighter
+        Frost Lighter
+        No Core Passive Lighter
     """
 
     # TODO: there is a case where the main character can receive buffs bc the supports trigger each other's core passive
