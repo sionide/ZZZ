@@ -26,10 +26,11 @@ class IterRegistry(type):
 
 class Buff:
     __metaclass__ = IterRegistry
-    _registry = []
+    _registry = {}
 
     def __init__(buff, name, atk_percent, flat_atk, crit_rate, crit_dmg, bonus_dmg, pen_ratio, def_reduction, res_ignore):
-        buff._registry.append(buff)
+        buff._registry[name] = buff
+        buff.name = name
 
         buff.atk_percent = atk_percent
         buff.flat_atk = flat_atk

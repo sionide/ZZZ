@@ -42,7 +42,7 @@ SwingJazz = Buff("SwingJazz", 0, 0, 0, 0, 15, 0, 0, 0)
 WoodpeckerElectro1 = Buff("WoodpeckerElectro1", 9, 0, 0, 0, 0, 0, 0, 0)
 WoodpeckerElectro2 = Buff("WoodpeckerElectro2", 18, 0, 0, 0, 0, 0, 0, 0)
 WoodpeckerElectro3 = Buff("WoodpeckerElectro3", 27, 0, 0, 0, 0, 0, 0, 0)
-
+ShadowHarmony4 = Buff("Shadow Harmony", 12, 0, 12, 0, 15, 0, 0, 0)
 
 """
 Weapon Buffs
@@ -66,25 +66,25 @@ TheBrimstone6 = Weapon("TheBrimstone6", 684, 21, 0, 0, 0, 0, 0, 0, 0)
 TheBrimstone7 = Weapon("TheBrimstone7", 684, 24.5, 0, 0, 0, 0, 0, 0, 0)
 TheBrimstone8 = Weapon("TheBrimstone8", 684, 28, 0, 0, 0, 0, 0, 0, 0)
 
-
+RiotSuppressorMKVI = Weapon("Riot Suppressor MK VI", 713, 0, 0, 15, 48, 0, 0, 0, 0)
 """
 APPLIED BUFFS NEEDS TO HAVE WEAPON AT INDEX 0
 """
-SelectedWeapon = StarlightEngine1
+SelectedWeapon = RiotSuppressorMKVI
 CustomBuff = CharacterBuff("Custom", 0, 0, 0, 0, 0,
                            0, 0, 0,
                            0, "", "",
                            STUNNER, "", ELECTRIC)
 
 
-applied_buffs = [SelectedWeapon,HarumasaSelfBuff,
-                 AstraYao,
+applied_buffs = [SelectedWeapon, HarumasaSelfBuff,
+                 # AstraYao,
                  AstralVoice,
                  SwingJazz,
-                 WoodpeckerElectro2,
+                 ShadowHarmony4,
                  NicoleM6,
-                 RinaM0SliceOfTime,
-                 # CustomBuff,
+                 # RinaM0SliceOfTime,
+                 CustomBuff,
                  # CustomBuff
                  ]
 
@@ -94,5 +94,6 @@ team3 = [SelectedWeapon, HarumasaSelfBuff, NicoleM6, SwingJazz, AstralVoice, Woo
 
 harumasa_teams = [team1, team2, team3]
 
-for buff in Buff._registry:
-    print(buff.name)
+# for buff in Buff._registry:
+#     print(Buff._registry[buff].name)
+# print(Buff._registry["AstraYao"].name)
