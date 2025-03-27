@@ -53,8 +53,11 @@ class CharacterBuff(Buff):
         self.MyDescription = CharacterDescription(specialty, faction, attribute)
 
 class Weapon(Buff):
-    def __init__(self, name, weapon_base, unconditional_atk_percent, conditional_atk_percent, flat_atk, crit_rate,
-                 crit_dmg, bonus_dmg, pen_ratio, def_reduction, res_ignore):
-        super().__init__(name, conditional_atk_percent, flat_atk, crit_rate, crit_dmg, bonus_dmg, pen_ratio, def_reduction, res_ignore)
+    def __init__(self, name, weapon_base, unconditional_atk_percent, conditional_atk_percent, flat_atk,
+                 unconditional_crit_rate, conditional_crit_rate, unconditional_crit_dmg, conditional_crit_dmg,
+                 bonus_dmg, pen_ratio, def_reduction, res_ignore):
+        super().__init__(name, conditional_atk_percent, flat_atk, conditional_crit_rate, conditional_crit_dmg, bonus_dmg, pen_ratio, def_reduction, res_ignore)
         self.weapon_base = weapon_base
         self.unconditional_atk_percent = unconditional_atk_percent
+        self.unconditional_crit_rate = unconditional_crit_rate
+        self.unconditional_crit_dmg = unconditional_crit_dmg

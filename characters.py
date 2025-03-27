@@ -121,11 +121,15 @@ class Character:
 
         # Sets the unconditional atk
         self.unconditional_atk = self.base_atk * (1 + atk + applied_buffs[0].unconditional_atk_percent/100) + self.unconditional_flat_atk
+        self.unconditional_crit_rate += applied_buffs[0].unconditional_crit_rate
+        self.unconditional_crit_dmg += applied_buffs[0].unconditional_crit_dmg
+
 
         # CALCULATE TOTAL BUFFS
         # Activated is for self core bonus
         activated = False
         for buff in buffs_applied:
+
             if buff.__class__.__name__ == "CharacterBuff":
                 # ACTIVATE CORE CORE BONUS OF THE BUFFING CHARACTER
                 for condition in buff.core_bonus_conditions:
@@ -164,7 +168,6 @@ class Character:
                                    conditional_bonus_dmg, conditional_pen_ratio, conditional_def_reduction)
 
     def find_no_weapon_atk_percent(self, total_flat_atk):
-        print(self.unconditional_atk)
         total_atk_percent = (self.unconditional_atk-total_flat_atk)/self.char_base_atk - 1
         return total_atk_percent
 
@@ -259,8 +262,7 @@ Harumasa_Char = Character(915, 1831, 152, 41, 136.4, 40, 0, 0, 40, TYPE_BONUS_DM
 
 Harumasa_Char.apply_buffs(applied_buffs)
 Harumasa_Char.print_unconditional_stats()
-# Harumasa_Char.find_no_weapon_stats(152)
-# Harumasa_Char.print_conditional_stats()
+Harumasa_Char.print_conditional_stats()
 # Harumasa_Char.print_unconditional_ratios()
 # Harumasa_Char.print_conditional_ratios()
 # Harumasa_Char.print_dmg_sample()
