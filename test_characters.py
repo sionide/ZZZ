@@ -1,5 +1,5 @@
 import unittest
-from buff_objects import StarlightEngine1, NicoleM6, RinaM0SliceOfTime
+from buff_objects import StarlightEngine1, NicoleM6, RinaM0SliceOfTime, MarcatoDesire0
 from buffs import CharacterBuff
 from characters import Character
 from CONST import *
@@ -7,24 +7,42 @@ from CONST import *
 
 class TestCharacters(unittest.TestCase):
     def setUp(self):
-        self.Harumasa_Char = Character(915, 3078, 0, 70.6, 117.2, 40, 0, 0, 40, TYPE_BONUS_DMG, [STUNNER, ANOMALY],
+        self.Harumasa_Char = Character(915, 1831, 152,
+                                       41, 136.4, 40, 0, 0,
+                                       40, TYPE_BONUS_DMG, [STUNNER, ANOMALY],
                                        ATTACKER, SECTION_6, ELECTRIC)
 
     def tearDown(self):
-        self.Harumasa_Char = Character(915, 3078, 0, 70.6, 117.2, 40, 0, 0, 40, TYPE_BONUS_DMG, [STUNNER, ANOMALY],
+        self.Harumasa_Char = Character(915, 1831, 152,
+                                       41, 136.4, 40, 0, 0,
+                                       40, TYPE_BONUS_DMG, [STUNNER, ANOMALY],
                                        ATTACKER, SECTION_6, ELECTRIC)
 
-    def test_unconditional(self):
+    def test_unconditional_atk_percent(self):
         Buffs = [StarlightEngine1]
         self.Harumasa_Char.apply_buffs(Buffs)
 
         self.assertEqual(self.Harumasa_Char.base_atk, 1509)
-        self.assertEqual(self.Harumasa_Char.unconditional_atk, 3078)
-        self.assertEqual(self.Harumasa_Char.unconditional_crit_rate, 70.6)
-        self.assertEqual(self.Harumasa_Char.unconditional_crit_dmg, 117.2)
+        self.assertEqual(self.Harumasa_Char.unconditional_atk.__round__(), 3093)
+        self.assertEqual(self.Harumasa_Char.unconditional_crit_rate, 41)
+        self.assertEqual(self.Harumasa_Char.unconditional_crit_dmg, 136.4)
         self.assertEqual(self.Harumasa_Char.unconditional_bonus, 40)
         self.assertEqual(self.Harumasa_Char.unconditional_pen_ratio, 0)
         self.assertEqual(self.Harumasa_Char.pen_flat, 0)
+
+    def test_unconditional_crit_rate(self):
+        print(self.Harumasa_Char.unconditional_atk.__round__())
+        Buffs = [MarcatoDesire0]
+
+        self.Harumasa_Char.apply_buffs(Buffs)
+        self.assertEqual(self.Harumasa_Char.base_atk, 1509)
+        self.assertEqual(self.Harumasa_Char.unconditional_atk.__round__(), 2716)
+        self.assertEqual(self.Harumasa_Char.unconditional_crit_rate, 61)
+        self.assertEqual(self.Harumasa_Char.unconditional_crit_dmg, 136.4)
+        self.assertEqual(self.Harumasa_Char.unconditional_bonus, 40)
+        self.assertEqual(self.Harumasa_Char.unconditional_pen_ratio, 0)
+        self.assertEqual(self.Harumasa_Char.pen_flat, 0)
+
 
     def test_core_passive(self):
         """Make sure core passive works only once"""

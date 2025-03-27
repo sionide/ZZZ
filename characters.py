@@ -120,9 +120,9 @@ class Character:
         self.base_atk = self.char_base_atk + buffs_applied[0].weapon_base
 
         # Sets the unconditional atk
-        self.unconditional_atk = self.base_atk * (1 + atk + applied_buffs[0].unconditional_atk_percent/100) + self.unconditional_flat_atk
-        self.unconditional_crit_rate += applied_buffs[0].unconditional_crit_rate
-        self.unconditional_crit_dmg += applied_buffs[0].unconditional_crit_dmg
+        self.unconditional_atk = self.base_atk * (1 + atk + buffs_applied[0].unconditional_atk_percent/100) + self.unconditional_flat_atk
+        self.unconditional_crit_rate += buffs_applied[0].unconditional_crit_rate
+        self.unconditional_crit_dmg += buffs_applied[0].unconditional_crit_dmg
 
 
         # CALCULATE TOTAL BUFFS
@@ -254,15 +254,16 @@ Starlight1      47966
 
 """
 
-substat = 17
+if __name__ == "__main__":
+    substat = 17
 
 
-Harumasa_Char = Character(915, 1831, 152, 41, 136.4, 40, 0, 0, 40, TYPE_BONUS_DMG, [STUNNER, ANOMALY], ATTACKER,
-                          SECTION_6, ELECTRIC)
+    Harumasa_Char = Character(915, 1831, 152, 41, 136.4, 40, 0, 0, 40, TYPE_BONUS_DMG, [STUNNER, ANOMALY], ATTACKER,
+                              SECTION_6, ELECTRIC)
 
-Harumasa_Char.apply_buffs(applied_buffs)
-Harumasa_Char.print_unconditional_stats()
-Harumasa_Char.print_conditional_stats()
-# Harumasa_Char.print_unconditional_ratios()
-# Harumasa_Char.print_conditional_ratios()
-# Harumasa_Char.print_dmg_sample()
+    Harumasa_Char.apply_buffs(applied_buffs)
+    Harumasa_Char.print_unconditional_stats()
+    Harumasa_Char.print_conditional_stats()
+    # Harumasa_Char.print_unconditional_ratios()
+    # Harumasa_Char.print_conditional_ratios()
+    # Harumasa_Char.print_dmg_sample()
