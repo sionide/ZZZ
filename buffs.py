@@ -28,6 +28,7 @@ class Buff:
     __metaclass__ = IterRegistry
     _registry = {}
 
+    # TODO: ADD STUN DMG MULTIPLIER
     def __init__(buff, name, atk_percent, flat_atk, crit_rate, crit_dmg, bonus_dmg, pen_ratio, def_reduction, res_ignore):
         buff._registry[name] = buff
         buff.name = name
@@ -52,7 +53,8 @@ class CharacterBuff(Buff):
         self.MyDescription = CharacterDescription(specialty, faction, attribute)
 
 class Weapon(Buff):
-    def __init__(self, name, weapon_base, atk_percent, flat_atk, crit_rate, crit_dmg, bonus_dmg, pen_ratio, def_reduction,
-                 res_ignore):
-        super().__init__(name, atk_percent, flat_atk, crit_rate, crit_dmg, bonus_dmg, pen_ratio, def_reduction, res_ignore)
+    def __init__(self, name, weapon_base, unconditional_atk_percent, conditional_atk_percent, flat_atk, crit_rate,
+                 crit_dmg, bonus_dmg, pen_ratio, def_reduction, res_ignore):
+        super().__init__(name, conditional_atk_percent, flat_atk, crit_rate, crit_dmg, bonus_dmg, pen_ratio, def_reduction, res_ignore)
         self.weapon_base = weapon_base
+        self.unconditional_atk_percent = unconditional_atk_percent

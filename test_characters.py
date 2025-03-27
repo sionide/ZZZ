@@ -1,38 +1,18 @@
 import unittest
-import buff_objects
 from buff_objects import StarlightEngine1, NicoleM6, RinaM0SliceOfTime
 from buffs import CharacterBuff
 from characters import Character
+from CONST import *
 
-STUNNER = "stun"
-ATTACKER = "attacker"
-SUPPORTER = "supporter"
-ANOMALY = "anomaly"
-
-ETHER = "ether"
-ELECTRIC = "electric"
-
-SECTION_6 = "section 6"
-CUNNING_HARES = "cunning hares"
-STARS_OF_LYRA = 'stars of lyra'
-VICTORIA_HOUSEKEEPING = "victoria housekeeping"
-
-TYPE_BONUS_DMG = "bonus"
-TYPE_CRIT_RATE = "crit rate"
-TYPE_CRIT_DMG = "crit dmg"
 
 class TestCharacters(unittest.TestCase):
     def setUp(self):
-        self.Harumasa_Char = Character(915, 3078, 70.6, 117.2,
-                                  40, 0, 0,
-                                  40, TYPE_BONUS_DMG,
-                                  [STUNNER, ANOMALY], ATTACKER, SECTION_6, ELECTRIC)
+        self.Harumasa_Char = Character(915, 3078, 0, 70.6, 117.2, 40, 0, 0, 40, TYPE_BONUS_DMG, [STUNNER, ANOMALY],
+                                       ATTACKER, SECTION_6, ELECTRIC)
 
     def tearDown(self):
-        self.Harumasa_Char = Character(915, 3078, 70.6, 117.2,
-                                       40, 0, 0,
-                                       40, TYPE_BONUS_DMG,
-                                       [STUNNER, ANOMALY], ATTACKER, SECTION_6, ELECTRIC)
+        self.Harumasa_Char = Character(915, 3078, 0, 70.6, 117.2, 40, 0, 0, 40, TYPE_BONUS_DMG, [STUNNER, ANOMALY],
+                                       ATTACKER, SECTION_6, ELECTRIC)
 
     def test_unconditional(self):
         Buffs = [StarlightEngine1]
@@ -93,9 +73,23 @@ class TestCharacters(unittest.TestCase):
     # TODO: THINK ABOUT WHAT HAPPENS WHEN A CORE PASSIVE OFFERS MORE THAN ONE BUFF
     """
     Lighter's core passive increases Fire and Frost Bonus Dmg by 75%
+    
+    These are DPS's and not buffers but should still be taken into consideration:
     Miyabi's core passive increases Basic Hold Dmg by 60% conditionally gives 30% res reduction
     Evelyn's core passive increases Chain and Ult by 30% and conditionally multiplies Chain and Ult by 1.25
     SS Anby's core passive increases 10% cr and 25% Bonus Aftershock Dmg
+    
+    Idea1:
+        Add DMG types to be specific and not be lazy
+        Would be more difficult to add up total bonus dmg, but could check if main character's
+        attribute doesn't Lighter's Bonus Dmg
+    
+    Idea2:
+        Create a class for core passives
+        
+    Idea3:
+        Create more instances of a buff
+        I really don't wanna do this
     """
 
     # TODO: there is a case where Lighter buffs 2 elements and I'm losing my mind bc one of them is not his own element
@@ -110,14 +104,28 @@ class TestCharacters(unittest.TestCase):
         
             Lighter Core Passive Conditions: [2, Fire, Frost, Attacker, Sons of Calydon]
         
-        No character is dual attribute or dual faction, therefore should never fail
+        No character is dual attribute, dual class, or dual faction, therefore should never fail
+        
+            Fails if neither Fire nor Frost, but is an Attacker and Son of Calydon
+            Attacker Son of Calydon currently does not exist (unless they do something with Billy?)
+        
         This would however would require reformatting other core passive conditions and how it is activated
         
+        Nicole is weird
+            
+            Nicole Core Passive Conditions: [1, Ether, Cunning Hares]
+            
+            change to 1 condition bc her core passive is pointless unless Ether attribute:
+        
+            Nicole Core Passive Conditions: [1, Ether]
+            
     Idea2:
         Create Different Instances of Lighter
         Fire Lighter
         Frost Lighter
         No Core Passive Lighter
+        
+        Problem is that this will overwrite Instances in Buff._registry
     """
 
     # TODO: there is a case where the main character can receive buffs bc the supports trigger each other's core passive

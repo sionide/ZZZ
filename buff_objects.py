@@ -1,21 +1,6 @@
 from buffs import CharacterBuff, Buff, Weapon
 
-STUNNER = "stun"
-ATTACKER = "attacker"
-SUPPORTER = "supporter"
-ANOMALY = "anomaly"
-
-ETHER = "ether"
-ELECTRIC = "electric"
-
-SECTION_6 = "section 6"
-CUNNING_HARES = "cunning hares"
-STARS_OF_LYRA = 'stars of lyra'
-VICTORIA_HOUSEKEEPING = "victoria housekeeping"
-
-TYPE_BONUS_DMG = "bonus"
-TYPE_CRIT_RATE = "crit rate"
-TYPE_CRIT_DMG = "crit dmg"
+from CONST import *
 
 
 """
@@ -48,29 +33,29 @@ ShadowHarmony4 = Buff("Shadow Harmony", 12, 0, 12, 0, 15, 0, 0, 0)
 Weapon Buffs
 DOES NOT INCLUDE UNCONDITIONAL STATS
 """
-MarcatoDesire0 = Weapon("MarcatoDesire0", 594, 0, 0, 0, 0, 0, 0, 0, 0)
-MarcatoDesire1 = Weapon("MarcatoDesire1", 594, 9.6, 0, 0, 0, 0, 0, 0, 0)
-MarcatoDesire2 = Weapon("MarcatoDesire2", 594, 19.2, 0, 0, 0, 0, 0, 0, 0)
+MarcatoDesire0 = Weapon("MarcatoDesire0", 594, 0, 0, 20, 0, 0, 0, 0, 0, 0)
+MarcatoDesire1 = Weapon("MarcatoDesire1", 594, 0, 9.6, 20, 0, 0, 0, 0, 0, 0)
+MarcatoDesire2 = Weapon("MarcatoDesire2", 594, 0, 19.2, 20, 0, 0, 0, 0, 0, 0)
 
-StarlightEngine0 = Weapon("StarlightEngine0", 594, 0, 0, 0, 0, 0, 0, 0, 0)
-StarlightEngine1 = Weapon("StarlightEngine1", 594, 19.2, 0, 0, 0, 0, 0, 0, 0)
+StarlightEngine0 = Weapon("StarlightEngine0", 594, 25, 0, 0, 0, 0, 0, 0, 0, 0)
+StarlightEngine1 = Weapon("StarlightEngine1", 594, 25, 19.2, 0, 0, 0, 0, 0, 0, 0)
 
 
-TheBrimstone0 = Weapon("TheBrimstone0", 684, 0, 0, 0, 0, 0, 0, 0, 0)
-TheBrimstone1 = Weapon("TheBrimstone1", 684, 3.5, 0, 0, 0, 0, 0, 0, 0)
-TheBrimstone2 = Weapon("TheBrimstone2", 684, 7, 0, 0, 0, 0, 0, 0, 0)
-TheBrimstone3 = Weapon("TheBrimstone3", 684, 10.5, 0, 0, 0, 0, 0, 0, 0)
-TheBrimstone4 = Weapon("TheBrimstone4", 684, 14, 0, 0, 0, 0, 0, 0, 0)
-TheBrimstone5 = Weapon("TheBrimstone5", 684, 17.5, 0, 0, 0, 0, 0, 0, 0)
-TheBrimstone6 = Weapon("TheBrimstone6", 684, 21, 0, 0, 0, 0, 0, 0, 0)
-TheBrimstone7 = Weapon("TheBrimstone7", 684, 24.5, 0, 0, 0, 0, 0, 0, 0)
-TheBrimstone8 = Weapon("TheBrimstone8", 684, 28, 0, 0, 0, 0, 0, 0, 0)
+TheBrimstone0 = Weapon("TheBrimstone0", 684, 30, 0, 0, 0, 0, 0, 0, 0, 0)
+TheBrimstone1 = Weapon("TheBrimstone1", 684, 30, 3.5, 0, 0, 0, 0, 0, 0, 0)
+TheBrimstone2 = Weapon("TheBrimstone2", 684, 30, 7, 0, 0, 0, 0, 0, 0, 0)
+TheBrimstone3 = Weapon("TheBrimstone3", 684, 30, 10.5, 0, 0, 0, 0, 0, 0, 0)
+TheBrimstone4 = Weapon("TheBrimstone4", 684, 30, 14, 0, 0, 0, 0, 0, 0, 0)
+TheBrimstone5 = Weapon("TheBrimstone5", 684, 30, 17.5, 0, 0, 0, 0, 0, 0, 0)
+TheBrimstone6 = Weapon("TheBrimstone6", 684, 30, 21, 0, 0, 0, 0, 0, 0, 0)
+TheBrimstone7 = Weapon("TheBrimstone7", 684, 30, 24.5, 0, 0, 0, 0, 0, 0, 0)
+TheBrimstone8 = Weapon("TheBrimstone8", 684, 30, 28, 0, 0, 0, 0, 0, 0, 0)
 
-RiotSuppressorMKVI = Weapon("Riot Suppressor MK VI", 713, 0, 0, 15, 48, 0, 0, 0, 0)
+RiotSuppressorMKVI = Weapon("Riot Suppressor MK VI", 713, 0, 0, 0, 15, 48, 0, 0, 0, 0)
 """
 APPLIED BUFFS NEEDS TO HAVE WEAPON AT INDEX 0
 """
-SelectedWeapon = RiotSuppressorMKVI
+SelectedWeapon = StarlightEngine1
 CustomBuff = CharacterBuff("Custom", 0, 0, 0, 0, 0,
                            0, 0, 0,
                            0, "", "",
@@ -94,6 +79,7 @@ team3 = [SelectedWeapon, HarumasaSelfBuff, NicoleM6, SwingJazz, AstralVoice, Woo
 
 harumasa_teams = [team1, team2, team3]
 
+# print(StarlightEngine1.unconditional_atk_percent)
 # for buff in Buff._registry:
 #     print(Buff._registry[buff].name)
 # print(Buff._registry["AstraYao"].name)
