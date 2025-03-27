@@ -1,9 +1,11 @@
 """
 CHARACTERS WILL HAVE UNCONDITIONAL STATS FROM WEAPONS AND DRIVE DISC
 """
+
 from buffs import CharacterDescription
-from buff_objects import applied_buffs, ELECTRIC
+from buff_objects import applied_buffs
 from gradient_function import pen_eq
+from CONST import *
 
 """
 NEED TO RUN apply_buffs FIRST TO WORK
@@ -12,25 +14,17 @@ NEED TO RUN apply_buffs FIRST TO WORK
 TARGET_DEF = 953
 unconditional_def_reduction = 0
 
-ATTACKER = "attacker"
-SECTION_6 = "section 6"
-
-TYPE_BONUS_DMG = "bonus"
-TYPE_CRIT_RATE = "crit rate"
-TYPE_CRIT_DMG = "crit dmg"
-
-
-STUNNER = "stun"
-ANOMALY = "anomaly"
 
 
 class Character:
-    def __init__(self, char_base_atk, unconditional_atk, crit_rate, crit_dmg, unconditional_bonus, pen_ratio, flat_pen,
-                 core_bonus, core_bonus_type, core_bonus_conditions, specialty, faction, attribute):
+    def __init__(self, char_base_atk, unconditional_atk_percent, unconditional_flat_atk_substat, crit_rate, crit_dmg,
+                 unconditional_bonus, pen_ratio, flat_pen, core_bonus, core_bonus_type, core_bonus_conditions,
+                 specialty, faction, attribute):
         # Stats
         self.base_atk = 0
         self.char_base_atk = char_base_atk
-        self.unconditional_atk = unconditional_atk
+        self.unconditional_atk = unconditional_atk_percent
+        self.unconditional_flat_atk = unconditional_flat_atk_substat + 316
         self.unconditional_crit_rate = crit_rate
         self.unconditional_crit_dmg = crit_dmg
         self.unconditional_pen_ratio = pen_ratio
@@ -65,7 +59,7 @@ class Character:
 
     def print_unconditional_stats(self):
         print("UNCONDITIONAL STATS:")
-        print("{0:10} {1}".format("ATK", round(self.unconditional_atk,2)))
+        print("{0:10} {1}".format("ATK", round(self.unconditional_atk,0)))
         print("{0:10} {1}".format("CRIT RATE", round(self.unconditional_crit_rate,2)))
         print("{0:10} {1}".format("CRIT DMG", round(self.unconditional_crit_dmg,2)))
         print("{0:10} {1}".format("BONUS DMG", round(self.unconditional_bonus,2)))
@@ -105,9 +99,7 @@ class Character:
             self.final_crit_rate -= self.converted_to_crit_dmg
             self.final_crit_dmg += 2*self.converted_to_crit_dmg
 
-
-
-    def apply_buffs(self, apply_buffs):
+    def apply_buffs(self, buffs_applied):
         """
         TAKES IN AN ARRAY OF BUFFS
         INDEX 0 IS A WEAPON
@@ -121,17 +113,23 @@ class Character:
         conditional_pen_ratio = 0
         conditional_def_reduction = 0
 
-        # ADDS WEAPON ATK TO BASE ATK
-        self.base_atk = self.char_base_atk + apply_buffs[0].weapon_base
+        # Takes in flat atk substat to find unconditional atk%
+        atk = self.find_no_weapon_atk_percent(self.unconditional_flat_atk)
 
-        # TODO: ADD CORE BONUS CONDITIONS
+        # ADDS WEAPON ATK TO BASE ATK
+        self.base_atk = self.char_base_atk + buffs_applied[0].weapon_base
+
+        # Sets the unconditional atk
+        self.unconditional_atk = self.base_atk * (1 + atk + applied_buffs[0].unconditional_atk_percent/100) + self.unconditional_flat_atk
+
         # CALCULATE TOTAL BUFFS
+        # Activated is for self core bonus
         activated = False
-        for buff in apply_buffs:
+        for buff in buffs_applied:
             if buff.__class__.__name__ == "CharacterBuff":
                 # ACTIVATE CORE CORE BONUS OF THE BUFFING CHARACTER
                 for condition in buff.core_bonus_conditions:
-                    print("condition for the buffer = {0}".format(condition))
+                    print("condition for {0} = {1}".format(buff.name, condition))
                     if condition == self.MyDescription:
                         if buff.core_bonus_type == TYPE_BONUS_DMG:
                             conditional_bonus_dmg += buff.core_bonus
@@ -165,7 +163,10 @@ class Character:
         self.set_conditional_stats(conditional_atk_percent, conditional_flat_atk, conditional_crit_rate, conditional_crit_dmg,
                                    conditional_bonus_dmg, conditional_pen_ratio, conditional_def_reduction)
 
-
+    def find_no_weapon_atk_percent(self, total_flat_atk):
+        print(self.unconditional_atk)
+        total_atk_percent = (self.unconditional_atk-total_flat_atk)/self.char_base_atk - 1
+        return total_atk_percent
 
     def print_unconditional_ratios(self):
         """
@@ -210,7 +211,6 @@ class Character:
         print("{0:15} {1}:1".format("CRIT:ATK", round( (crit_avg-1) / (atk-1), 2) ))
         print("\n{0:15} {1}%".format("TOTAL INCREASE", round(total_increase*100, 2)) )
 
-
     def print_dmg_sample(self):
         """
         FOR COMPARING DIFFERENT BASE ATK
@@ -251,15 +251,16 @@ Starlight1      47966
 
 """
 
+substat = 17
 
-Harumasa_Char = Character(915, 3078, 70.6, 117.2,
-                          40, 0, 0,
-                          40, TYPE_BONUS_DMG,
-                          [STUNNER, ANOMALY], ATTACKER, SECTION_6, ELECTRIC)
+
+Harumasa_Char = Character(915, 1831, 152, 41, 136.4, 40, 0, 0, 40, TYPE_BONUS_DMG, [STUNNER, ANOMALY], ATTACKER,
+                          SECTION_6, ELECTRIC)
 
 Harumasa_Char.apply_buffs(applied_buffs)
-# Harumasa_Char.print_unconditional_stats()
-Harumasa_Char.print_conditional_stats()
+Harumasa_Char.print_unconditional_stats()
+# Harumasa_Char.find_no_weapon_stats(152)
+# Harumasa_Char.print_conditional_stats()
 # Harumasa_Char.print_unconditional_ratios()
-Harumasa_Char.print_conditional_ratios()
+# Harumasa_Char.print_conditional_ratios()
 # Harumasa_Char.print_dmg_sample()
